@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Payment History — Grand Vista Hotel</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<nav class="navbar">
+    <a class="brand" th:href="@{/}">Grand Vista Hotel</a>
+    <div class="nav-links">
+        <a th:href="@{/customer/dashboard}">My Account</a>
+        <a th:href="@{/customer/bookings}">My Bookings</a>
+        <a th:href="@{/customer/payment/history}">Payment History</a>
+        <a th:href="@{/customer/logout}">Logout</a>
+    </div>
+</nav>
+
+<div class="container">
+    <h1>Payment History</h1>
+
+    <div class="card">
+        <table>
+            <thead>
+            <tr><th>Payment ID</th><th>Booking ID</th><th>Amount</th><th>Date</th><th>Mode</th></tr>
+            </thead>
+            <tbody>
+            <tr th:each="p : ${payments}">
+                <td th:text="${p.paymentId}"></td>
+                <td th:text="${p.bookingId}"></td>
+                <td>₹<span th:text="${#numbers.formatDecimal(p.amount,1,2)}"></span></td>
+                <td th:text="${p.paymentDate}"></td>
+                <td th:text="${p.paymentMode}"></td>
+            </tr>
+            <tr th:if="${#lists.isEmpty(payments)}">
+                <td colspan="5" class="muted">No payments made yet.</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>

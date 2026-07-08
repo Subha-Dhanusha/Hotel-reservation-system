@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>My Bookings — Grand Vista Hotel</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<nav class="navbar">
+    <a class="brand" th:href="@{/}">Grand Vista Hotel</a>
+    <div class="nav-links">
+        <a th:href="@{/customer/dashboard}">My Account</a>
+        <a th:href="@{/customer/bookings}">My Bookings</a>
+        <a th:href="@{/customer/payment/history}">Payment History</a>
+        <a th:href="@{/customer/logout}">Logout</a>
+    </div>
+</nav>
+
+<div class="container">
+    <div style="display:flex; justify-content:space-between; align-items:center;">
+        <h1>My Bookings</h1>
+        <a class="btn btn-primary" th:href="@{/customer/book}">+ Book a Room</a>
+    </div>
+
+    <div class="card">
+        <table>
+            <thead>
+            <tr><th>Booking ID</th><th>Room</th><th>Type</th><th>Check-in</th><th>Check-out</th><th>Amount</th><th>Actions</th></tr>
+            </thead>
+            <tbody>
+            <tr th:each="b : ${bookings}">
+                <td th:text="${b.bookingId}"></td>
+                <td th:text="${b.roomNo}"></td>
+                <td th:text="${b.roomType}"></td>
+                <td th:text="${b.checkIn}"></td>
+                <td th:text="${b.checkOut}"></td>
+                <td>₹<span th:text="${#numbers.formatDecimal(b.totalAmount,1,2)}"></span></td>
+                <td class="row-actions">
+                    <a class="btn btn-secondary" th:href="@{/customer/payment/{id}(id=${b.bookingId})}">Pay</a>
+                    <form th:action="@{/customer/bookings/cancel/{id}(id=${b.bookingId})}" method="post"
+                          onsubmit="return confirm('Cancel this booking?');">
+                        <button type="submit" class="btn btn-danger">Cancel</button>
+                    </form>
+                </td>
+            </tr>
+            <tr th:if="${#lists.isEmpty(bookings)}">
+                <td colspan="7" class="muted">You have no bookings yet.</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>

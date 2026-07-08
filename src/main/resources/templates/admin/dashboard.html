@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard — Grand Vista Hotel</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<nav class="navbar">
+    <a class="brand" th:href="@{/}">Grand Vista Hotel</a>
+    <div class="nav-links">
+        <a th:href="@{/admin/dashboard}">Dashboard</a>
+        <a th:href="@{/admin/rooms}">Rooms</a>
+        <a th:href="@{/admin/reports}">Reports</a>
+        <a th:href="@{/admin/logout}">Logout</a>
+    </div>
+</nav>
+
+<div class="container">
+    <h1>Welcome, <span th:text="${adminUsername}"></span></h1>
+
+    <div class="grid">
+        <div class="stat"><div class="value" th:text="${totalRooms}"></div><div class="label">Total Rooms</div></div>
+        <div class="stat"><div class="value" th:text="${availableRooms}"></div><div class="label">Available</div></div>
+        <div class="stat"><div class="value" th:text="${bookedRooms}"></div><div class="label">Booked</div></div>
+        <div class="stat"><div class="value" th:text="${totalCustomers}"></div><div class="label">Customers</div></div>
+        <div class="stat"><div class="value" th:text="${totalBookings}"></div><div class="label">Bookings</div></div>
+        <div class="stat"><div class="value">₹<span th:text="${#numbers.formatDecimal(totalRevenue,1,2)}"></span></div><div class="label">Revenue</div></div>
+    </div>
+
+    <div class="card">
+        <h2>Quick Actions</h2>
+        <div class="actions" style="justify-content:flex-start;">
+            <a class="btn btn-secondary" th:href="@{/admin/rooms/add}">+ Add Room</a>
+            <a class="btn btn-secondary" th:href="@{/admin/rooms}">Manage Rooms</a>
+            <a class="btn btn-secondary" th:href="@{/admin/reports}">View Reports</a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

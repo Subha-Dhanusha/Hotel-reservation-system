@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login — Grand Vista Hotel</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<nav class="navbar">
+    <a class="brand" th:href="@{/}">Grand Vista Hotel</a>
+    <div class="nav-links"><a th:href="@{/customer/register}">Register</a></div>
+</nav>
+
+<div class="container" style="max-width:480px;">
+    <div class="card">
+        <h2>Customer Login</h2>
+        <p th:if="${param.registered}" class="notice">Account created! You can log in now.</p>
+        <p th:if="${error}" class="error" th:text="${error}"></p>
+        <form th:action="@{/customer/login}" method="post">
+            <div>
+                <label>Email</label>
+                <input type="email" name="email" required autofocus>
+            </div>
+            <div>
+                <label>Password</label>
+                <input type="password" name="password" required>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Log In</button>
+        </form>
+        <p class="muted" style="margin-top:16px;">New here? <a th:href="@{/customer/register}" style="color:var(--gold-dark); font-weight:600;">Create an account</a></p>
+    </div>
+</div>
+
+</body>
+</html>

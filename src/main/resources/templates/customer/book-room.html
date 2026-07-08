@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Book a Room — Grand Vista Hotel</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<nav class="navbar">
+    <a class="brand" th:href="@{/}">Grand Vista Hotel</a>
+    <div class="nav-links">
+        <a th:href="@{/customer/dashboard}">My Account</a>
+        <a th:href="@{/customer/bookings}">My Bookings</a>
+        <a th:href="@{/customer/payment/history}">Payment History</a>
+        <a th:href="@{/customer/logout}">Logout</a>
+    </div>
+</nav>
+
+<div class="container" style="max-width:480px;">
+    <div class="card">
+        <h2>Book a Room</h2>
+        <p th:if="${error}" class="error" th:text="${error}"></p>
+        <p th:if="${#lists.isEmpty(rooms)}" class="muted">No rooms are currently available. Please check back later.</p>
+        <form th:unless="${#lists.isEmpty(rooms)}" th:action="@{/customer/book}" method="post">
+            <div>
+                <label>Room Number</label>
+                <select name="roomNo" required>
+                    <option th:each="r : ${rooms}" th:value="${r}" th:text="'Room ' + ${r}"></option>
+                </select>
+            </div>
+            <div>
+                <label>Check-in Date</label>
+                <input type="date" name="checkIn" th:min="${today}" required>
+            </div>
+            <div>
+                <label>Check-out Date</label>
+                <input type="date" name="checkOut" th:min="${today}" required>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Confirm Booking</button>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

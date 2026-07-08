@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Room — Grand Vista Hotel</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<nav class="navbar">
+    <a class="brand" th:href="@{/}">Grand Vista Hotel</a>
+    <div class="nav-links">
+        <a th:href="@{/admin/dashboard}">Dashboard</a>
+        <a th:href="@{/admin/rooms}">Rooms</a>
+        <a th:href="@{/admin/reports}">Reports</a>
+        <a th:href="@{/admin/logout}">Logout</a>
+    </div>
+</nav>
+
+<div class="container" style="max-width:480px;">
+    <div class="card">
+        <h2>Edit Room <span th:text="${room.roomNo}"></span></h2>
+        <form th:action="@{/admin/rooms/edit}" method="post">
+            <input type="hidden" name="roomNo" th:value="${room.roomNo}">
+            <div>
+                <label>Room Type</label>
+                <select name="roomType">
+                    <option th:each="t : ${ {'Single','Double','Deluxe','Suite'} }"
+                            th:value="${t}" th:text="${t}" th:selected="${t == room.roomType}"></option>
+                </select>
+            </div>
+            <div>
+                <label>Price per night (₹)</label>
+                <input type="number" step="0.01" name="price" th:value="${room.price}" required>
+            </div>
+            <div>
+                <label>Status</label>
+                <select name="status">
+                    <option value="Available" th:selected="${room.status == 'Available'}">Available</option>
+                    <option value="Booked" th:selected="${room.status == 'Booked'}">Booked</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Save Changes</button>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>
