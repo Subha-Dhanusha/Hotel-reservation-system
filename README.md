@@ -1,4 +1,4 @@
-# Grand Vista Hotel — Reservation System (Web Edition)
+# SmartStay Hotel — Reservation System (Web Edition)
 
 A Spring Boot + Thymeleaf + MySQL rewrite of the original AWT desktop hotel
 reservation system, so it can run live in a browser.
@@ -51,14 +51,9 @@ git push -u origin main
 2. Create a new service → MySQL → select the **Free** plan.
 3. Once it's running, open the service and copy the connection details:
    `Host`, `Port`, `User`, `Password`, and default database name.
-4. Import your data into it. With the `mysql` CLI:
-   ```bash
-   mysql --host=<aiven-host> --port=<aiven-port> --user=<aiven-user> -p \
-         --ssl-mode=REQUIRED <database-name> < schema.sql
-   ```
-   Or use the Aiven console / a GUI tool like TablePlus or DBeaver and run
-   `schema.sql` against it. This recreates your tables and carries over your
-   existing rooms, customers, bookings, payments, and admin login.
+
+You do **not** need to manually import `schema.sql` — the app does this
+automatically on its first startup (see the Render step below).
 
 ## 4. Deploy to Render
 1. Go to https://render.com and sign up / log in.
@@ -75,7 +70,22 @@ git push -u origin main
    | `DB_URL` | `jdbc:mysql://<aiven-host>:<aiven-port>/<database-name>?sslMode=REQUIRED` |
    | `DB_USERNAME` | your Aiven MySQL username |
    | `DB_PASSWORD` | your Aiven MySQL password |
-5. Click **Create Web Service**. Render will build the Docker image and
+5. Click **Create Web Service**.
+
+   On this first deploy, the app will automatically create all the tables
+   and load your starter data into Aiven — no manual SQL import needed.
+
+   **Important:** once you've confirmed the site works (Step 5 below), go
+   back to Environment Variables and add one more:
+
+   | Key | Value |
+   |---|---|
+   | `DB_INIT_MODE` | `never` |
+
+   Save it (this triggers a redeploy). This stops the app from re-running
+   `schema.sql` on every future restart — otherwise it would silently wipe
+   your data back to the starter set every time the service restarts or
+   redeploys. Render will build the Docker image and
    deploy it — this takes a few minutes the first time.
 6. Once it's live, Render gives you a URL like
    `https://hotel-reservation-system.onrender.com` — that's your live app.
