@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Payment — SmartStay Hotel</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<nav class="navbar">
+    <a class="brand" th:href="@{/}">SmartStay Hotel</a>
+    <div class="nav-links">
+        <a th:href="@{/customer/dashboard}">My Account</a>
+        <a th:href="@{/customer/bookings}">My Bookings</a>
+        <a th:href="@{/customer/payment/history}">Payment History</a>
+        <a th:href="@{/customer/logout}">Logout</a>
+    </div>
+</nav>
+
+<div class="container" style="max-width:480px;">
+    <div class="card">
+        <h2>Make Payment</h2>
+        <p class="muted">Booking #<span th:text="${bookingId}"></span></p>
+        <form th:action="@{/customer/payment}" method="post">
+            <input type="hidden" name="bookingId" th:value="${bookingId}">
+            <div>
+                <label>Amount (₹)</label>
+                <input type="number" step="0.01" name="amount" th:value="${amount}" readonly>
+            </div>
+            <div>
+                <label>Payment Mode</label>
+                <select name="paymentMode" required>
+                    <option value="Credit Card">Credit Card</option>
+                    <option value="Debit Card">Debit Card</option>
+                    <option value="UPI">UPI</option>
+                    <option value="Net Banking">Net Banking</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Pay Now</button>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

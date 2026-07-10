@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>SmartStay Hotel — Reservations</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="brand">SmartStay Hotel</div>
+    <div class="nav-links">
+        <a th:href="@{/customer/login}">Customer Login</a>
+        <a th:href="@{/admin/login}">Admin Login</a>
+    </div>
+</nav>
+
+<div class="hero">
+    <h1>Welcome to SmartStay Hotel</h1>
+    <p>Book your stay in seconds. Comfortable rooms, simple reservations.</p>
+    <div class="actions">
+        <a class="btn btn-primary" th:href="@{/customer/register}">Book a Room</a>
+        <a class="btn btn-outline" th:href="@{/customer/login}">I already have an account</a>
+    </div>
+</div>
+
+<div class="container">
+    <div class="card">
+        <h2>How it works</h2>
+        <p class="muted">1. Register or log in as a customer &nbsp;·&nbsp; 2. Browse available rooms &nbsp;·&nbsp; 3. Pick your dates and book &nbsp;·&nbsp; 4. Pay online and you're set.</p>
+    </div>
+</div>
+
+<footer>SmartStay Hotel Reservation System</footer>
+
+</body>
+</html>

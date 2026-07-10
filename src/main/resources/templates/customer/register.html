@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Register — SmartStay Hotel</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<nav class="navbar">
+    <a class="brand" th:href="@{/}">SmartStay Hotel</a>
+    <div class="nav-links"><a th:href="@{/customer/login}">Login</a></div>
+</nav>
+
+<div class="container" style="max-width:480px;">
+    <div class="card">
+        <h2>Create an Account</h2>
+        <p th:if="${error}" class="error" th:text="${error}"></p>
+        <form th:action="@{/customer/register}" method="post">
+            <div>
+                <label>Full Name</label>
+                <input type="text" name="name" required autofocus>
+            </div>
+            <div>
+                <label>Phone</label>
+                <input type="tel" name="phone" required>
+            </div>
+            <div>
+                <label>Email</label>
+                <input type="email" name="email" required>
+            </div>
+            <div>
+                <label>Password</label>
+                <input type="password" name="password" required>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Register</button>
+        </form>
+        <p class="muted" style="margin-top:16px;">Already have an account? <a th:href="@{/customer/login}" style="color:var(--gold-dark); font-weight:600;">Log in</a></p>
+    </div>
+</div>
+
+</body>
+</html>

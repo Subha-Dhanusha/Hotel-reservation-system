@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Manage Rooms — SmartStay Hotel</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<nav class="navbar">
+    <a class="brand" th:href="@{/}">SmartStay Hotel</a>
+    <div class="nav-links">
+        <a th:href="@{/admin/dashboard}">Dashboard</a>
+        <a th:href="@{/admin/rooms}">Rooms</a>
+        <a th:href="@{/admin/reports}">Reports</a>
+        <a th:href="@{/admin/logout}">Logout</a>
+    </div>
+</nav>
+
+<div class="container">
+    <div style="display:flex; justify-content:space-between; align-items:center;">
+        <h1>Rooms</h1>
+        <a class="btn btn-primary" th:href="@{/admin/rooms/add}">+ Add Room</a>
+    </div>
+
+    <div class="card">
+        <table>
+            <thead>
+            <tr><th>Room No</th><th>Type</th><th>Price / night</th><th>Status</th><th>Actions</th></tr>
+            </thead>
+            <tbody>
+            <tr th:each="room : ${rooms}">
+                <td th:text="${room.roomNo}"></td>
+                <td th:text="${room.roomType}"></td>
+                <td>₹<span th:text="${#numbers.formatDecimal(room.price,1,2)}"></span></td>
+                <td>
+                    <span class="badge"
+                          th:classappend="${room.status == 'Available'} ? 'badge-available' : 'badge-booked'"
+                          th:text="${room.status}"></span>
+                </td>
+                <td class="row-actions">
+                    <a class="btn btn-secondary" th:href="@{/admin/rooms/edit/{no}(no=${room.roomNo})}">Edit</a>
+                    <form th:action="@{/admin/rooms/delete/{no}(no=${room.roomNo})}" method="post"
+                          onsubmit="return confirm('Delete room ' + this.action.split('/').pop() + '?');">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            <tr th:if="${#lists.isEmpty(rooms)}">
+                <td colspan="5" class="muted">No rooms added yet.</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>

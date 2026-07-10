@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>My Account — SmartStay Hotel</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<nav class="navbar">
+    <a class="brand" th:href="@{/}">SmartStay Hotel</a>
+    <div class="nav-links">
+        <a th:href="@{/customer/dashboard}">My Account</a>
+        <a th:href="@{/customer/bookings}">My Bookings</a>
+        <a th:href="@{/customer/payment/history}">Payment History</a>
+        <a th:href="@{/customer/logout}">Logout</a>
+    </div>
+</nav>
+
+<div class="container">
+    <h1>Welcome, <span th:text="${customerName}"></span></h1>
+
+    <div class="card">
+        <h2>What would you like to do?</h2>
+        <div class="actions" style="justify-content:flex-start;">
+            <a class="btn btn-primary" th:href="@{/customer/book}">Book a Room</a>
+            <a class="btn btn-secondary" th:href="@{/customer/bookings}">View My Bookings</a>
+            <a class="btn btn-secondary" th:href="@{/customer/payment/history}">Payment History</a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
